@@ -1,0 +1,30 @@
+                                                                                 QUERY PLAN                                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize GroupAggregate  (cost=9996.66..9997.99 rows=5 width=46) (actual time=29.072..30.067 rows=5 loops=1)
+   Group Key: txns_p.kind
+   Buffers: shared hit=5160
+   ->  Gather Merge  (cost=9996.66..9997.82 rows=10 width=46) (actual time=29.066..30.057 rows=15 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=5160
+         ->  Sort  (cost=8996.63..8996.65 rows=5 width=46) (actual time=27.752..27.753 rows=5 loops=3)
+               Sort Key: txns_p.kind
+               Sort Method: quicksort  Memory: 25kB
+               Buffers: shared hit=5160
+               Worker 0:  Sort Method: quicksort  Memory: 25kB
+               Worker 1:  Sort Method: quicksort  Memory: 25kB
+               ->  Partial HashAggregate  (cost=8996.51..8996.58 rows=5 width=46) (actual time=27.738..27.740 rows=5 loops=3)
+                     Group Key: txns_p.kind
+                     Batches: 1  Memory Usage: 24kB
+                     Buffers: shared hit=5144
+                     Worker 0:  Batches: 1  Memory Usage: 24kB
+                     Worker 1:  Batches: 1  Memory Usage: 24kB
+                     ->  Parallel Seq Scan on txns_p_202609 txns_p  (cost=0.00..7712.51 rows=171200 width=13) (actual time=0.006..12.739 rows=136987 loops=3)
+                           Filter: ((posted_at >= '2026-09-01 00:00:00+05'::timestamp with time zone) AND (posted_at < '2026-10-01 00:00:00+05'::timestamp with time zone))
+                           Buffers: shared hit=5144
+ Planning:
+   Buffers: shared hit=289
+ Planning Time: 0.448 ms
+ Execution Time: 30.102 ms
+(26 rows)
+

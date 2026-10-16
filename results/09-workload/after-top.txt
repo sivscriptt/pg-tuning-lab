@@ -1,0 +1,8 @@
+ total_ms | calls | mean_ms | pct  | cache_hit_pct |                                      query                                       
+----------+-------+---------+------+---------------+----------------------------------------------------------------------------------
+   100158 | 84992 |    1.18 | 91.4 |          46.2 | select id, posted_at, amount, kind, merchant, status from core.txns where accoun
+     8410 | 34216 |    0.25 |  7.7 |          94.6 | select core.transfer($1, $2, $3)
+      697 | 17014 |    0.04 |  0.6 |         100.0 | select id, account_id, amount, posted_at from core.txns where status = $1 order 
+      261 | 33882 |    0.01 |  0.2 |          99.6 | select id, full_name, national_id, phone from core.customers where lower(email) 
+(4 rows)
+

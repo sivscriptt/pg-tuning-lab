@@ -1,0 +1,16 @@
+select id, full_name, national_id, phone
+from core.customers
+where lower(email) = lower('ali.naseem271828@example.mv')
+
+Bitmap Heap Scan on customers  (cost=37.40..2291.13 rows=2500 width=38) (actual time=0.014..0.014 rows=1 loops=1)
+  Recheck Cond: (lower(email) = 'ali.naseem271828@example.mv'::text)
+  Heap Blocks: exact=1
+  Buffers: shared hit=4
+  ->  Bitmap Index Scan on customers_email_lower_idx  (cost=0.00..36.77 rows=2500 width=0) (actual time=0.009..0.009 rows=1 loops=1)
+        Index Cond: (lower(email) = 'ali.naseem271828@example.mv'::text)
+        Buffers: shared hit=3
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=102
+Planning Time: 0.247 ms
+Execution Time: 0.029 ms

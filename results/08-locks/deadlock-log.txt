@@ -1,0 +1,5 @@
+2026-10-16 13:25:10.195 +05 [38457] postgres@bank ERROR:  deadlock detected
+2026-10-16 13:25:10.195 +05 [38457] postgres@bank DETAIL:  Process 38457 waits for ShareLock on transaction 848; blocked by process 38459.
+	Process 38459 waits for ShareLock on transaction 847; blocked by process 38457.
+	Process 38457: select core.transfer_naive(1001, 2002, 10, 1.5)
+	Process 38459: select core.transfer_naive(2002, 1001, 10, 1.5)

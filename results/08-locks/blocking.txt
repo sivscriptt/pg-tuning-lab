@@ -1,0 +1,7 @@
+  pid  |  blocked_by   | state  |     waiting_on     | xact_secs |                             query                              
+-------+---------------+--------+--------------------+-----------+----------------------------------------------------------------
+ 38494 | {}            | active | Timeout:PgSleep    |       2.9 | select pg_sleep(6)
+ 38497 | {38494}       | active | Lock:transactionid |       2.4 | update core.accounts set balance = balance + 1 where id = 1001
+ 38504 | {38497}       | active | Lock:tuple         |       2.1 | update core.accounts set balance = balance + 2 where id = 1001
+ 38509 | {38497,38504} | active | Lock:tuple         |       1.8 | update core.accounts set balance = balance + 3 where id = 1001
+

@@ -1,0 +1,13 @@
+delete from core.accounts where id = 9999999
+
+Delete on accounts  (cost=0.42..2.64 rows=0 width=0) (actual time=0.082..0.082 rows=0 loops=1)
+  Buffers: shared hit=12
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.42..2.64 rows=1 width=6) (actual time=0.022..0.022 rows=1 loops=1)
+        Index Cond: (id = 9999999)
+        Buffers: shared hit=7
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=64
+Planning Time: 0.187 ms
+Trigger for constraint txns_account_id_fkey: time=502.956 calls=1
+Execution Time: 503.092 ms

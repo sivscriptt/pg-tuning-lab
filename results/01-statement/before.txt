@@ -1,0 +1,31 @@
+select id, posted_at, amount, kind, merchant, status
+from core.txns
+where account_id = 424242
+order by posted_at desc
+limit 50
+
+Limit  (cost=178194.09..178195.26 rows=10 width=43) (actual time=384.690..386.111 rows=6 loops=1)
+  Buffers: shared hit=40552 read=84672
+  I/O Timings: shared read=689.751
+  ->  Gather Merge  (cost=178194.09..178195.26 rows=10 width=43) (actual time=384.689..386.110 rows=6 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=40552 read=84672
+        I/O Timings: shared read=689.751
+        ->  Sort  (cost=177194.07..177194.08 rows=5 width=43) (actual time=383.501..383.501 rows=2 loops=3)
+              Sort Key: posted_at DESC
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=40552 read=84672
+              I/O Timings: shared read=689.751
+              Worker 0:  Sort Method: quicksort  Memory: 25kB
+              Worker 1:  Sort Method: quicksort  Memory: 25kB
+              ->  Parallel Seq Scan on txns  (cost=0.00..177194.01 rows=5 width=43) (actual time=342.045..383.459 rows=2 loops=3)
+                    Filter: (account_id = 424242)
+                    Rows Removed by Filter: 3333331
+                    Buffers: shared hit=40438 read=84672
+                    I/O Timings: shared read=689.751
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.181 ms
+Execution Time: 386.143 ms

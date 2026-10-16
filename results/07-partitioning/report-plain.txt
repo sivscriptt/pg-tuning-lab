@@ -1,0 +1,37 @@
+                                                                                 QUERY PLAN                                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize GroupAggregate  (cost=189919.44..189920.77 rows=5 width=46) (actual time=1383.938..1385.299 rows=5 loops=1)
+   Group Key: kind
+   Buffers: shared hit=16 read=125110 written=96
+   I/O Timings: shared read=3620.369 write=16.475
+   ->  Gather Merge  (cost=189919.44..189920.61 rows=10 width=46) (actual time=1383.923..1385.286 rows=15 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=16 read=125110 written=96
+         I/O Timings: shared read=3620.369 write=16.475
+         ->  Sort  (cost=188919.42..188919.43 rows=5 width=46) (actual time=1381.465..1381.466 rows=5 loops=3)
+               Sort Key: kind
+               Sort Method: quicksort  Memory: 25kB
+               Buffers: shared hit=16 read=125110 written=96
+               I/O Timings: shared read=3620.369 write=16.475
+               Worker 0:  Sort Method: quicksort  Memory: 25kB
+               Worker 1:  Sort Method: quicksort  Memory: 25kB
+               ->  Partial HashAggregate  (cost=188919.30..188919.36 rows=5 width=46) (actual time=1381.447..1381.449 rows=5 loops=3)
+                     Group Key: kind
+                     Batches: 1  Memory Usage: 24kB
+                     Buffers: shared read=125110 written=96
+                     I/O Timings: shared read=3620.369 write=16.475
+                     Worker 0:  Batches: 1  Memory Usage: 24kB
+                     Worker 1:  Batches: 1  Memory Usage: 24kB
+                     ->  Parallel Seq Scan on txns  (cost=0.00..187610.00 rows=174573 width=13) (actual time=1298.108..1364.572 rows=136987 loops=3)
+                           Filter: ((posted_at >= '2026-09-01 00:00:00+05'::timestamp with time zone) AND (posted_at < '2026-10-01 00:00:00+05'::timestamp with time zone))
+                           Rows Removed by Filter: 3196346
+                           Buffers: shared read=125110 written=96
+                           I/O Timings: shared read=3620.369 write=16.475
+ Planning:
+   Buffers: shared hit=108 read=7 written=7
+   I/O Timings: shared read=0.699 write=0.828
+ Planning Time: 1.911 ms
+ Execution Time: 1385.359 ms
+(33 rows)
+

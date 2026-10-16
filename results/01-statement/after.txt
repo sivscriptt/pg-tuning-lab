@@ -1,0 +1,16 @@
+select id, posted_at, amount, kind, merchant, status
+from core.txns
+where account_id = 424242
+order by posted_at desc
+limit 50
+
+Limit  (cost=0.43..13.83 rows=11 width=43) (actual time=0.016..0.033 rows=6 loops=1)
+  Buffers: shared hit=12
+  ->  Index Scan using txns_account_posted_idx on txns  (cost=0.43..13.83 rows=11 width=43) (actual time=0.015..0.032 rows=6 loops=1)
+        Index Cond: (account_id = 424242)
+        Buffers: shared hit=12
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=118
+Planning Time: 0.241 ms
+Execution Time: 0.048 ms

@@ -1,0 +1,19 @@
+select count(*), sum(amount)
+from core.txns
+where posted_at >= date '2026-03-14' and posted_at < date '2026-03-15'
+
+Aggregate  (cost=15735.51..15735.52 rows=1 width=40) (actual time=2.629..2.630 rows=1 loops=1)
+  Buffers: shared hit=220
+  ->  Bitmap Heap Scan on txns  (cost=23.09..15666.62 rows=13777 width=7) (actual time=0.363..1.989 rows=13694 loops=1)
+        Recheck Cond: ((posted_at >= '2026-03-14'::date) AND (posted_at < '2026-03-15'::date))
+        Rows Removed by Index Recheck: 1646
+        Heap Blocks: lossy=192
+        Buffers: shared hit=220
+        ->  Bitmap Index Scan on txns_posted_brin  (cost=0.00..19.65 rows=15345 width=0) (actual time=0.330..0.330 rows=1920 loops=1)
+              Index Cond: ((posted_at >= '2026-03-14'::date) AND (posted_at < '2026-03-15'::date))
+              Buffers: shared hit=28
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=120
+Planning Time: 0.284 ms
+Execution Time: 2.662 ms

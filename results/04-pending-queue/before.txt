@@ -1,0 +1,31 @@
+select id, account_id, amount, posted_at
+from core.txns
+where status = 'pending'
+order by posted_at
+limit 100
+
+Limit  (cost=178347.30..178358.97 rows=100 width=31) (actual time=465.758..467.026 rows=100 loops=1)
+  Buffers: shared hit=42472 read=82752
+  I/O Timings: shared read=675.594
+  ->  Gather Merge  (cost=178347.30..179287.24 rows=8056 width=31) (actual time=465.757..467.020 rows=100 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=42472 read=82752
+        I/O Timings: shared read=675.594
+        ->  Sort  (cost=177347.28..177357.35 rows=4028 width=31) (actual time=464.300..464.302 rows=98 loops=3)
+              Sort Key: posted_at
+              Sort Method: top-N heapsort  Memory: 32kB
+              Buffers: shared hit=42472 read=82752
+              I/O Timings: shared read=675.594
+              Worker 0:  Sort Method: top-N heapsort  Memory: 32kB
+              Worker 1:  Sort Method: top-N heapsort  Memory: 32kB
+              ->  Parallel Seq Scan on txns  (cost=0.00..177193.33 rows=4028 width=31) (actual time=463.288..464.051 rows=2754 loops=3)
+                    Filter: (status = 'pending'::text)
+                    Rows Removed by Filter: 3330580
+                    Buffers: shared hit=42358 read=82752
+                    I/O Timings: shared read=675.594
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=92
+Planning Time: 0.210 ms
+Execution Time: 467.066 ms

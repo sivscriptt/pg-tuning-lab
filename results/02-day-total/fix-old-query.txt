@@ -1,0 +1,25 @@
+select count(*), sum(amount)
+from core.txns
+where posted_at::date = date '2026-03-14'
+
+Finalize Aggregate  (cost=188714.40..188714.41 rows=1 width=40) (actual time=520.752..523.575 rows=1 loops=1)
+  Buffers: shared hit=41782 read=83328
+  I/O Timings: shared read=660.014
+  ->  Gather  (cost=188714.17..188714.38 rows=2 width=40) (actual time=520.627..523.560 rows=3 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=41782 read=83328
+        I/O Timings: shared read=660.014
+        ->  Partial Aggregate  (cost=187714.17..187714.18 rows=1 width=40) (actual time=519.378..519.379 rows=1 loops=3)
+              Buffers: shared hit=41782 read=83328
+              I/O Timings: shared read=660.014
+              ->  Parallel Seq Scan on txns  (cost=0.00..187610.00 rows=20833 width=7) (actual time=434.305..519.132 rows=4565 loops=3)
+                    Filter: ((posted_at)::date = '2026-03-14'::date)
+                    Rows Removed by Filter: 3328769
+                    Buffers: shared hit=41782 read=83328
+                    I/O Timings: shared read=660.014
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=102
+Planning Time: 0.257 ms
+Execution Time: 523.620 ms

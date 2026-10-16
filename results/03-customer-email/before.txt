@@ -1,0 +1,17 @@
+select id, full_name, national_id, phone
+from core.customers
+where lower(email) = lower('ali.naseem271828@example.mv')
+
+Gather  (cost=1000.00..11361.00 rows=2500 width=38) (actual time=41.948..42.818 rows=1 loops=1)
+  Workers Planned: 2
+  Workers Launched: 2
+  Buffers: shared hit=6986
+  ->  Parallel Seq Scan on customers  (cost=0.00..10111.00 rows=1042 width=38) (actual time=34.592..40.755 rows=0 loops=3)
+        Filter: (lower(email) = 'ali.naseem271828@example.mv'::text)
+        Rows Removed by Filter: 166666
+        Buffers: shared hit=6986
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=87
+Planning Time: 0.198 ms
+Execution Time: 42.829 ms

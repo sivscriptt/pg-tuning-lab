@@ -1,0 +1,37 @@
+pgbench (17.10)
+transaction type: multiple scripts
+scaling factor: 1
+query mode: simple
+number of clients: 4
+number of threads: 4
+maximum number of tries: 1
+duration: 30 s
+number of transactions actually processed: 122
+number of failed transactions: 0 (0.000%)
+latency average = 1035.398 ms
+initial connection time = 3.058 ms
+tps = 3.863249 (without initial connection time)
+SQL script 1: /Users/fa-000282/Library/Mobile Documents/com~apple~CloudDocs/Projects/pg-tuning-lab/workload/statement.pgbench
+ - weight: 5 (targets 50.0% of total)
+ - 57 transactions (46.7% of total, tps = 1.804961)
+ - number of failed transactions: 0 (0.000%)
+ - latency average = 1804.395 ms
+ - latency stddev = 150.122 ms
+SQL script 2: /Users/fa-000282/Library/Mobile Documents/com~apple~CloudDocs/Projects/pg-tuning-lab/workload/email.pgbench
+ - weight: 2 (targets 20.0% of total)
+ - 25 transactions (20.5% of total, tps = 0.791649)
+ - number of failed transactions: 0 (0.000%)
+ - latency average = 83.362 ms
+ - latency stddev = 43.183 ms
+SQL script 3: /Users/fa-000282/Library/Mobile Documents/com~apple~CloudDocs/Projects/pg-tuning-lab/workload/pending.pgbench
+ - weight: 1 (targets 10.0% of total)
+ - 11 transactions (9.0% of total, tps = 0.348326)
+ - number of failed transactions: 0 (0.000%)
+ - latency average = 1850.558 ms
+ - latency stddev = 151.276 ms
+SQL script 4: /Users/fa-000282/Library/Mobile Documents/com~apple~CloudDocs/Projects/pg-tuning-lab/workload/transfer.pgbench
+ - weight: 2 (targets 20.0% of total)
+ - 29 transactions (23.8% of total, tps = 0.918313)
+ - number of failed transactions: 0 (0.000%)
+ - latency average = 1.983 ms
+ - latency stddev = 1.874 ms

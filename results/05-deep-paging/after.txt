@@ -1,0 +1,16 @@
+select id, posted_at, amount, ref
+from core.txns
+where id > 5000000
+order by id
+limit 100
+
+Limit  (cost=0.43..3.74 rows=100 width=36) (actual time=0.015..0.030 rows=100 loops=1)
+  Buffers: shared hit=9
+  ->  Index Scan using txns_pkey on txns  (cost=0.43..165578.52 rows=5013325 width=36) (actual time=0.015..0.026 rows=100 loops=1)
+        Index Cond: (id > 5000000)
+        Buffers: shared hit=9
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=75
+Planning Time: 0.182 ms
+Execution Time: 0.049 ms

@@ -1,0 +1,15 @@
+select id, account_id, amount, posted_at
+from core.txns
+where status = 'pending'
+order by posted_at
+limit 100
+
+Limit  (cost=0.29..3.25 rows=100 width=31) (actual time=0.020..0.043 rows=100 loops=1)
+  Buffers: shared hit=41
+  ->  Index Scan using txns_pending_idx on txns  (cost=0.29..286.86 rows=9667 width=31) (actual time=0.020..0.039 rows=100 loops=1)
+        Buffers: shared hit=41
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=109
+Planning Time: 0.296 ms
+Execution Time: 0.059 ms

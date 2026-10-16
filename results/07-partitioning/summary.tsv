@@ -1,0 +1,4 @@
+Month-end report, plain table	1131.682 ms
+Month-end report, partitioned	31.599 ms
+Archive 1 month with DELETE (424,611 rows)	1144.612 ms, 22.7 MB WAL
+Archive 1 month with DETACH + DROP	96 ms, 41.4 kB WAL

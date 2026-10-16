@@ -1,0 +1,6 @@
+01-statement	Customer statement, last 50 transactions	427.97	0.05	8559x	txns_account_posted_idx (301 MB)	5.4s
+02-day-total	Total for one day, cast on the column	577.30	2.59	223x	txns_posted_brin (144 kB)	0.6s
+03-customer-email	Customer lookup by email, any case	43.28	0.03	1443x	customers_email_lower_idx (25 MB)	0.5s
+04-pending-queue	Oldest 100 pending transactions	486.83	0.05	9737x	txns_pending_idx (200 kB)	0.5s
+05-deep-paging	Audit export, page 50,001 with OFFSET	959.32	0.05	19186x	-	-
+06-fk-delete	Delete a closed account, unindexed foreign key	503.09	0.31	1623x	txns_account_posted_idx (301 MB)	4.8s

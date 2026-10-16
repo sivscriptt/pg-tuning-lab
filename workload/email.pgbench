@@ -1,0 +1,2 @@
+\set c random(1, 500000)
+select id, full_name, national_id, phone from core.customers where lower(email) = 'ali.naseem' || :c || '@example.mv';

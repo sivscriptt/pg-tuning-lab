@@ -1,0 +1,17 @@
+select id, posted_at, amount, ref
+from core.txns
+order by id
+offset 5000000 limit 100
+
+Limit  (cost=152637.04..152640.09 rows=100 width=36) (actual time=1334.671..1334.693 rows=100 loops=1)
+  Buffers: shared hit=1444 read=75558
+  I/O Timings: shared read=560.541
+  ->  Index Scan using txns_pkey on txns  (cost=0.43..305273.64 rows=10000000 width=36) (actual time=0.023..1212.068 rows=5000100 loops=1)
+        Buffers: shared hit=1444 read=75558
+        I/O Timings: shared read=560.541
+Settings: work_mem = '16MB', effective_cache_size = '2GB', random_page_cost = '1.1'
+Planning:
+  Buffers: shared hit=63 read=9
+  I/O Timings: shared read=0.186
+Planning Time: 0.406 ms
+Execution Time: 1335.473 ms
